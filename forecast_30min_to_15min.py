@@ -58,7 +58,7 @@ if __name__=='__main__':
         for item in [wspd_column]:
             with closing(Pool(processes, main_worker, [file, item])) as pool:  # open pool of workers
                 try:
-                    del out_src[item + "_15min"]
+                    del out_src[item + "_15min"]  # deletes output hdf dataset in case it exists (from previous runs). If does not exists, just continues.
                 except:
                     print "Cannot delete item or item does not exist"
                 out_src.require_dataset(item + "_15min", (90889,35015), dtype = np.float32, chunks=(1000,35015), fillvalue = 0)  # generate empty dataset with desired shape and datatype
